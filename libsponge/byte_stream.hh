@@ -2,6 +2,7 @@
 #define SPONGE_LIBSPONGE_BYTE_STREAM_HH
 
 #include <string>
+#include <deque>
 
 //! \brief An in-order byte stream.
 
@@ -16,8 +17,12 @@ class ByteStream {
     // all, but if any of your tests are taking longer than a second,
     // that's a sign that you probably want to keep exploring
     // different approaches.
-
+    size_t _capacity;
     bool _error{};  //!< Flag indicating that the stream suffered an error.
+    bool _input_end{};
+    size_t _bytes_write = 0;
+    size_t _bytes_read = 0;
+    std::deque<char> _buff{};
 
   public:
     //! Construct a stream with room for `capacity` bytes.
